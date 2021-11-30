@@ -1,3 +1,18 @@
+
+@Allsample
+Feature: ForeSight UIs
+
+
+
+@PaperSave
+Scenario Outline: WebScraping ForeSight data
+Given with the "https://psservices.app.cloud.papersave.com/workflow" link I will open the application
+Then I will login with my "rsharma" , "abc123$$$" 
+
+Examples: {'dataFile' : 'src/main/resources/data/ForeSightTestdata.xls', 'sheetName':'WebScraper'}
+
+
+
 @QAFTestStep(description="I will login with my {CAUserID} , {password}")
 	public void loginPage(String CAUserID, String password) {
 		getDriver().findElement(By.id("Username")).sendKeys(CAUserID);
