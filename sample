@@ -1,0 +1,43 @@
+@QAFTestStep(description="I will login with my {CAUserID} , {password}")
+	public void paperSave(String CAUserID, String password) {
+		getDriver().findElement(By.id("Username")).sendKeys(CAUserID);
+		getDriver().findElement(By.id("Password")).sendKeys(password);
+		getDriver().findElement(By.id("btnLogin")).click();
+		getDriver().findElement(By.id("addNewDocNavigationAppName")).click();
+		
+		Select dropDown = new Select(getDriver().findElement(By.xpath("//span[text()='Bill Association']")));
+		int flag = 0;
+		if (!dropDown.isMultiple()) {
+			List<WebElement> dropDownCategories = dropDown.getOptions();
+
+			for (WebElement dropDownCategory : dropDownCategories) {
+				if (dropDownCategory.getText().equals("Bill Association")) {
+					flag = 1;
+					break;
+				}
+			}
+
+			if (flag == 1) {
+				dropDown.selectByVisibleText("Bill Association");
+			}
+		}
+		
+		getDriver().findElement(By.xpath("//*[@data-ud='grid-row53']")).click();
+		//mouse hover
+		WebElement ele = getDriver().findElement(By.xpath("//*[@data-ud='grid-row53']"));
+		Actions action = new Actions(driver);
+		action.moveToElement(ele).perform();
+		
+		getDriver().findElement(By.xpath("//*[text()=588]")).click();
+		getDriver().findElement(By.xpath("//textarea[@placeholder='Enter Value']")).sendKeys("Automation test");
+		
+		getDriver().findElement(By.xpath("(//*[@id='ejMenuBar_nav'])[2]")).click();
+		getDriver().findElement(By.xpath("//*[@id='documentdialognavigationclose']/span")).click();
+		
+		//List<WebElement> lists = getDriver().findElements(By.xpath("//*[@class='datagrid_ID_Column']"));
+		//for (WebElement webele : lists) {
+			System.out.println("ID= "+getDriver().findElement(By.xpath("(//*[@class='datagrid_ID_Column'])[2]")).getAttribute("value").toString());
+		//}
+		
+		//Map<String, WebElement> mapID= new Map<String,WebElement>();
+	}
